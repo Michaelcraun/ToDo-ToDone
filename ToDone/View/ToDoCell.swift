@@ -10,6 +10,17 @@ import UIKit
 
 class ToDoCell: UITableViewCell {
     
+    func clearCell() {
+        
+        let subViews = self.subviews
+        
+        for subView in subViews {
+            
+            subView.removeFromSuperview()
+            
+        }
+    }
+    
     func configureCell(toDo: ToDo) {
         
         let categoryView = CategoryView()
@@ -18,49 +29,67 @@ class ToDoCell: UITableViewCell {
         let progressBar = UIView()
         let completedBar = UIView()
         
-        let toDoColor = toDo.category?.color as? UIColor
+        let progressAsCGFloat = CGFloat(toDo.completed)
         
-        categoryView.backgroundColor = toDoColor
-        categoryView.frame = CGRect(x: 10,
-                                    y: self.frame.height / 2 - 5,
-                                    width: 10,
-                                    height: 10)
+        categoryView.backgroundColor = toDo.category?.color as? UIColor
+        categoryView.translatesAutoresizingMaskIntoConstraints = false
         
-        percentageLabel.font = UIFont(name: "Arial", size: 15)
+        percentageLabel.font = Shared.displayFont
         percentageLabel.textAlignment = .right
         percentageLabel.text = "\(toDo.completed)%"
         percentageLabel.sizeToFit()
-        percentageLabel.frame = CGRect(x: self.frame.width - 10,
-                                       y: self.frame.height / 2 - percentageLabel.frame.height / 2,
-                                       width: 50,
-                                       height: percentageLabel.frame.height)
+        percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLbl.font = UIFont(name: "Arial", size: 15)
+        titleLbl.font = Shared.displayFont
         titleLbl.text = toDo.title
         titleLbl.sizeToFit()
-        titleLbl.frame = CGRect(x: 20 + categoryView.frame.width,
-                                y: self.frame.height / 2 - titleLbl.frame.height / 2 - 5,
-                                width: titleLbl.frame.width,
-                                height: titleLbl.frame.height)
+        titleLbl.translatesAutoresizingMaskIntoConstraints = false
         
         progressBar.backgroundColor = UIColor.black
-        progressBar.frame = CGRect(x: 30,
-                                   y: self.frame.height / 2 - progressBar.frame.height / 2 + 10,
-                                   width: self.frame.width - 40,
-                                   height: 2)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
         
-        let progressAsCGFloat = CGFloat(toDo.completed)
-        completedBar.backgroundColor = toDoColor
-        completedBar.frame = CGRect(x: progressBar.frame.minX,
-                                    y: progressBar.frame.minY - 3,
-                                    width: (progressBar.frame.width * (progressAsCGFloat * 0.01)),
-                                    height: 5)
+        completedBar.backgroundColor = toDo.category?.color as? UIColor
+        completedBar.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(categoryView)
-        self.addSubview(titleLbl)
         self.addSubview(percentageLabel)
-        self.addSubview(progressBar)
+        self.addSubview(titleLbl)
         self.addSubview(completedBar)
+        self.addSubview(progressBar)
+        
+        let categoryWidth = categoryView.widthAnchor.constraint(equalToConstant: 10)
+        let categoryHeight = categoryView.heightAnchor.constraint(equalToConstant: 10)
+        let categoryY = categoryView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        let categoryLeft = categoryView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+        
+        let percentageHeight = percentageLabel.heightAnchor.constraint(equalToConstant: percentageLabel.frame.height)
+        let percentageWidth = percentageLabel.widthAnchor.constraint(equalToConstant: 40)
+        let percentageRight = percentageLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+        let percentageY = percentageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        let titleLeft = titleLbl.leadingAnchor.constraint(equalTo: categoryView.trailingAnchor, constant: 10)
+        let titleRight = titleLbl.trailingAnchor.constraint(equalTo: percentageLabel.leadingAnchor, constant: -10)
+        let titleY = titleLbl.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: titleLbl.frame.height / 2 - 15)
+        
+        let progressLeft = progressBar.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor)
+        let progressRight = progressBar.trailingAnchor.constraint(equalTo: titleLbl.trailingAnchor)
+        let progressHeight = progressBar.heightAnchor.constraint(equalToConstant: 2)
+        let progressY = progressBar.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 10)
+        
+        let completedLeft = completedBar.leadingAnchor.constraint(equalTo: progressBar.leadingAnchor)
+        let completedHeight = completedBar.heightAnchor.constraint(equalToConstant: 5)
+        let completedWidth = completedBar.widthAnchor.constraint(equalTo: progressBar.widthAnchor, multiplier: progressAsCGFloat * 0.01)
+        let completedY = completedBar.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 8.5)
+        
+        let viewConstraints = [categoryWidth, categoryHeight, categoryY, categoryLeft,
+                               percentageHeight, percentageWidth, percentageRight, percentageY,
+                               titleLeft, titleRight, titleY,
+                               progressLeft, progressRight, progressHeight, progressY,
+                               completedLeft, completedHeight, completedWidth, completedY]
+        
+        NSLayoutConstraint.activate(viewConstraints)
+        
+        self.bringSubview(toFront: completedBar)
         
     }
 }

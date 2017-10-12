@@ -10,34 +10,33 @@ import UIKit
 
 extension MainVC {
     
-    func layoutView() {
-        
-        layoutMenuButtons()
-        layoutToDoTable()
-        
-    }
-    
     func layoutMenuButtons() {
         
-        let settingsButton = UIButton()
-        let addButton = UIButton()
-        
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.backgroundColor = UIColor.orange
         settingsButton.addTarget(self, action: #selector(MainVC.settingsPressed(sender:)), for: .touchUpInside)
-        settingsButton.frame = CGRect(x: 10,
-                                      y: 40,
-                                      width: 30,
-                                      height: 30)
         
+        addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.backgroundColor = UIColor.orange
         addButton.addTarget(self, action: #selector(MainVC.addPressed(sender:)), for: .touchUpInside)
-        addButton.frame = CGRect(x: Shared.screenWidth - 40,
-                                 y: 40,
-                                 width: 30,
-                                 height: 30)
         
         view.addSubview(settingsButton)
         view.addSubview(addButton)
+        
+        let settingsWidth = settingsButton.widthAnchor.constraint(equalToConstant: 30)
+        let settingsHeight = settingsButton.heightAnchor.constraint(equalToConstant: 30)
+        let settingsX = settingsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+        let settingsY = settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40)
+        
+        let addWidth = addButton.widthAnchor.constraint(equalToConstant: 30)
+        let addHeight = addButton.heightAnchor.constraint(equalToConstant: 30)
+        let addX = addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        let addY = addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40)
+        
+        let buttonConstraints = [settingsWidth, settingsHeight, settingsX, settingsY,
+                                 addWidth, addHeight, addX, addY]
+        
+        NSLayoutConstraint.activate(buttonConstraints)
         
     }
     
@@ -48,17 +47,19 @@ extension MainVC {
         toDoTable.separatorStyle = .none
         toDoTable.allowsMultipleSelection = false
         toDoTable.register(ToDoCell.self, forCellReuseIdentifier: "toDoCell")
-        toDoTable.frame = CGRect(x: 0,
-                                 y: 80,
-                                 width: Shared.screenWidth,
-                                 height: Shared.screenHeight - 80)
+        toDoTable.translatesAutoresizingMaskIntoConstraints = false
+        toDoTable.rowHeight = 44
         
         view.addSubview(toDoTable)
         
-    }
-    
-    func layoutSettingsPane() {
+        let tableTop = toDoTable.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 10)
+        let tableLeft = toDoTable.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let tableRight = toDoTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let tableBottom = toDoTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
+        let tableConstraints = [tableTop, tableLeft, tableRight, tableBottom]
+        
+        NSLayoutConstraint.activate(tableConstraints)
         
     }
 }

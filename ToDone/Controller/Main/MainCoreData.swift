@@ -13,6 +13,27 @@ extension MainVC {
     
     func generateStartingData() {
         
+        let general = Category(context: context)
+        general.color = UIColor.blue
+        general.title = "General"
+        
+        let home = Category(context: context)
+        home.color = UIColor.brown
+        home.title = "Home"
+        
+        let school = Category(context: context)
+        school.color = UIColor.green
+        school.title = "School"
+        
+        let socialAndFamily = Category(context: context)
+        socialAndFamily.color = UIColor.magenta
+        socialAndFamily.title = "Social & Family"
+        
+        let work = Category(context: context)
+        work.color = UIColor.orange
+        work.title = "Work"
+        
+        ad.saveContext()
         
     }
     
@@ -30,20 +51,34 @@ extension MainVC {
         socialAndFamily.title = "Social & Family"
         socialAndFamily.color = UIColor.orange
         
+        let dishes = SubToDo(context: context)
+        dishes.title = "Dishes"
+        dishes.completed = false
+        
+        let laundry = SubToDo(context: context)
+        laundry.title = "Laundry"
+        dishes.completed = false
+        
         let chores = ToDo(context: context)
         chores.title = "Chores"
         chores.completed = 33
         chores.category = home
+        chores.deadline = Date()
+        chores.addToSubToDo(dishes)
         
         let familyMeeting = ToDo(context: context)
         familyMeeting.title = "Family Meeting"
         familyMeeting.completed = 20
         familyMeeting.category = socialAndFamily
+        familyMeeting.deadline = Date()
         
         let drinkWater = ToDo(context: context)
         drinkWater.title = "Drink 8 bottles of water per day"
-        drinkWater.completed = 38
+        drinkWater.completed = Int16((3/8) * 100)
         drinkWater.category = general
+        drinkWater.deadline = Date()
+        
+        ad.saveContext()
         
     }
     
@@ -57,6 +92,27 @@ extension MainVC {
         let controller = NSFetchedResultsController(fetchRequest: toDoFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = self
         self.toDoController = controller
+        
+        do {
+            
+            try controller.performFetch()
+            
+        } catch {
+            
+            let error = error as NSError
+            print("Error: \(error)")
+            
+        }
+    }
+    
+    func attemptCategoryFetch() {
+        
+        let titleSort = NSSortDescriptor(key: "title", ascending: true)
+        categoryFetchRequest.sortDescriptors = [titleSort]
+        
+        let controller = NSFetchedResultsController(fetchRequest: categoryFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        self.categoryController = controller
         
         do {
             

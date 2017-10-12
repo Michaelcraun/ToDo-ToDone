@@ -11,28 +11,41 @@ import CoreData
 
 class MainVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
+    //MARK: UI Variables
+    let settingsButton = UIButton()
+    let addButton = UIButton()
     let toDoTable = UITableView()
     
     //MARK: CoreData Variables
     var toDoController: NSFetchedResultsController<ToDo>!
     let toDoFetchRequest: NSFetchRequest<ToDo> = ToDo.fetchRequest()
+    var categoryController: NSFetchedResultsController<Category>!
+    let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        layoutView()
-        firstLaunch()
+        layoutMenuButtons()
+        layoutToDoTable()
         
-        //MARK: Test Calls
-        generateTestData()
+        checkOnLaunch()
         attemptToDoFetch()
+        attemptCategoryFetch()
         
     }
     
-    func firstLaunch() {
+    override func viewDidAppear(_ animated: Bool) {
+        
+        attemptToDoFetch()
+        toDoTable.reloadData()
+        
+    }
+    
+    func checkOnLaunch() {
         
         let defaults = UserDefaults.standard
         let hasRan = defaults.bool(forKey: "hasRan")
+        Shared.isPremium = defaults.bool(forKey: "isPremium")
         
         if !hasRan {
             
@@ -40,18 +53,17 @@ class MainVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewD
             defaults.set(true, forKey: "hasRan")
             
         }
-        
     }
     
     @objc func settingsPressed(sender: UIButton!) {
         
-        print("settingsPressed")
+        performSegue(withIdentifier: "showSettings", sender: nil)
         
     }
     
     @objc func addPressed(sender: UIButton!) {
         
-        print("addPressed")
+        performSegue(withIdentifier: "addEditToDo", sender: nil)
         
     }
     
@@ -75,6 +87,7 @@ class MainVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewD
         
         if let objects = toDoController.fetchedObjects, objects.count > 0 {
             
+            cell.clearCell()
             cell.configureCell(toDo: objects[indexPath.row])
             
         }
@@ -84,11 +97,36 @@ class MainVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
+        toDoTable.deselectRow(at: indexPath, animated: true)
         
-        if tableView == toDoTable {
+        if let objects = toDoController.fetchedObjects, objects.count > 0 {
             
-            toDoTable.deselectRow(at: indexPath, animated: true)
+            let object = objects[indexPath.row]
+            performSegue(withIdentifier: "addEditToDo", sender: object)
             
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "addEditToDo" {
+            
+            if let destination = segue.destination as? AddToDoVC {
+                
+                if let toDoToEdit = sender as? ToDo {
+                    
+                    destination.toDoToEdit = toDoToEdit
+                    
+                }
+            }
+        } else if segue.identifier == "showSettings" {
+            
+            if let destination = segue.destination as? SettingsVC {
+                
+                destination.modalPresentationStyle = .overFullScreen
+                
+            }
         }
     }
 }

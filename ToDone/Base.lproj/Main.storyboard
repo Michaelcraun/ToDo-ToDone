@@ -9,6 +9,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--SettingsVC-->
+        <scene sceneID="pwM-cW-cTE">
+            <objects>
+                <viewController id="xh3-1h-cOf" customClass="SettingsVC" customModule="ToDone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZCU-Yx-QxL">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="b9x-kw-nNV"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="667"/>
+                    <connections>
+                        <segue destination="oM3-MI-w9P" kind="unwind" identifier="unwindToLeft" customClass="UnwindSlideFromLeft" customModule="ToDone" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="RoL-t8-ahP"/>
+                        <segue destination="Lhs-NE-YIU" kind="show" identifier="addCategory" id="0Oe-QG-EZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x0H-Qj-mhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="oM3-MI-w9P" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-264" y="947"/>
+        </scene>
         <!--MainVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -16,15 +38,50 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="J7i-AQ-WKH" kind="show" id="iBc-30-HPc"/>
+                        <segue destination="J7i-AQ-WKH" kind="show" identifier="addEditToDo" id="iBc-30-HPc"/>
+                        <segue destination="xh3-1h-cOf" kind="custom" identifier="showSettings" customClass="SlideFromLeft" customModule="ToDone" customModuleProvider="target" id="xJ1-cM-ytc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-262" y="68"/>
+        </scene>
+        <!--Add DetailsVC-->
+        <scene sceneID="X6I-So-vLZ">
+            <objects>
+                <viewController id="GoQ-gv-j5K" customClass="AddDetailsVC" customModule="ToDone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GLB-Hu-yTz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="eHt-Eo-j4b"/>
+                    </view>
+                    <connections>
+                        <segue destination="Lhs-NE-YIU" kind="show" identifier="addCategory" id="vfK-Xi-Vqh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="APc-xN-GSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1692" y="68"/>
+        </scene>
+        <!--Add CategoryVC-->
+        <scene sceneID="TLJ-nL-837">
+            <objects>
+                <viewController id="Lhs-NE-YIU" customClass="AddCategoryVC" customModule="ToDone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iwX-9L-AYy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="Tl6-f3-D3e"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fw-dR-WJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1692" y="947"/>
         </scene>
         <!--Add To DoVC-->
         <scene sceneID="SBi-PF-YAp">
@@ -36,10 +93,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="TH6-uQ-5sh"/>
                     </view>
+                    <connections>
+                        <segue destination="GoQ-gv-j5K" kind="show" identifier="addDetails" id="Qxr-i3-ymf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tO0-c7-ojr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1514" y="68"/>
+            <point key="canvasLocation" x="830" y="68"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vfK-Xi-Vqh"/>
+    </inferredMetricsTieBreakers>
 </document>
