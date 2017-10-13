@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import StoreKit
 
 class Shared {
     
@@ -22,4 +23,11 @@ class Shared {
     
     static var isPremium = false
     
+    static var productPurchasing = SKProduct()
+    static var productList = [SKProduct]()
+    
+}
+
+enum Products: String {
+    case premium = "com.CraunicProductions.HoneyDo.premium"
 }

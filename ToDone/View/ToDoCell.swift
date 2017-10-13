@@ -12,11 +12,11 @@ class ToDoCell: UITableViewCell {
     
     func clearCell() {
         
-        let subViews = self.subviews
+        let subviews = self.subviews
         
-        for subView in subViews {
+        for subview in subviews {
             
-            subView.removeFromSuperview()
+            subview.removeFromSuperview()
             
         }
     }

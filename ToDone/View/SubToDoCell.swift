@@ -9,6 +9,40 @@
 import UIKit
 
 class SubToDoCell: UITableViewCell {
+    
+    func clearCell() {
+        
+        let subviews = self.subviews
+        
+        for subview in subviews {
+            
+            subview.removeFromSuperview()
+            
+        }
+    }
+    
+    func configurePurchaseCell() {
+        
+        let purchaseLabel = UILabel()
+        
+        purchaseLabel.translatesAutoresizingMaskIntoConstraints = false
+        purchaseLabel.font = Shared.displayFont
+        purchaseLabel.textColor = UIColor.red
+        purchaseLabel.text = "Purchase ToDo ToDone"
+        purchaseLabel.sizeToFit()
+        
+        self.addSubview(purchaseLabel)
+        
+        let purchaseWidth = purchaseLabel.widthAnchor.constraint(equalToConstant: purchaseLabel.frame.width)
+        let purchaseHeight = purchaseLabel.heightAnchor.constraint(equalToConstant: purchaseLabel.frame.height)
+        let purchaseX = purchaseLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let purchaseY = purchaseLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        let purchaseConstraints = [purchaseWidth, purchaseHeight, purchaseX, purchaseY]
+        
+        NSLayoutConstraint.activate(purchaseConstraints)
+        
+    }
 
     func configureAddCell() {
         

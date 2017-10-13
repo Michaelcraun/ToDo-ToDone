@@ -22,8 +22,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="250" height="667"/>
                     <connections>
-                        <segue destination="oM3-MI-w9P" kind="unwind" identifier="unwindToLeft" customClass="UnwindSlideFromLeft" customModule="ToDone" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="RoL-t8-ahP"/>
                         <segue destination="Lhs-NE-YIU" kind="show" identifier="addCategory" id="0Oe-QG-EZT"/>
+                        <segue destination="oM3-MI-w9P" kind="unwind" identifier="unwindToLeft" customClass="UnwindSlideFromLeft" customModule="ToDone" customModuleProvider="target" unwindAction="unwindToMainWithSegue:" id="rDN-vG-bZo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x0H-Qj-mhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -103,6 +103,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vfK-Xi-Vqh"/>
+        <segue reference="0Oe-QG-EZT"/>
     </inferredMetricsTieBreakers>
 </document>

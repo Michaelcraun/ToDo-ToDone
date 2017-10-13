@@ -58,24 +58,27 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     @objc func donePressed(sender: TextButton!) {
         
-        if titleInput.text != "" {
+        if transition == "addSubToDo" {
             
-            let newSubToDo = SubToDo(context: context)
-            newSubToDo.title = titleInput.text
-            newSubToDo.completed = false
-            newSubToDo.dateAdded = Date()
-            
-            Shared.createdSubToDo = newSubToDo
-            
-            dismiss(animated: true, completion: nil)
-            
-        } else {
-            
-            let alert = UIAlertController(title: "Missint Title", message: "Please input a title for this SubToDo.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            present(alert, animated: true, completion: nil)
-            
+            if titleInput.text != "" {
+                
+                let newSubToDo = SubToDo(context: context)
+                newSubToDo.title = titleInput.text
+                newSubToDo.completed = false
+                newSubToDo.dateAdded = Date()
+                
+                Shared.createdSubToDo = newSubToDo
+                
+                dismiss(animated: true, completion: nil)
+                
+            } else {
+                
+                let alert = UIAlertController(title: "Missing Title", message: "Please input a title for this SubToDo.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                present(alert, animated: true, completion: nil)
+                
+            }
         }
         
         if Shared.selectedCategory != nil {
@@ -96,7 +99,7 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             
         }
         
-        return numOfCategories + 1
+        return numOfCategories
         
     }
     
@@ -104,17 +107,10 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryCell
         
-        if indexPath.row == 0 {
-            
-            cell.configureAddCell()
-            
-        } else {
-            
-            if let objects = categoryController.fetchedObjects, objects.count > 0 {
+        if let objects = categoryController.fetchedObjects, objects.count > 0 {
                 
-                cell.configureCell(category: objects[indexPath.row - 1])
-                
-            }
+            cell.configureCell(category: objects[indexPath.row])
+            
         }
         
         return cell
@@ -123,17 +119,10 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 {
-            
-            performSegue(withIdentifier: "addCategory", sender: nil)
-            
-        } else {
-            
-            if let objects = categoryController.fetchedObjects, objects.count > 0 {
+        if let objects = categoryController.fetchedObjects, objects.count > 0 {
                 
-                Shared.selectedCategory = objects[indexPath.row - 1]
-                
-            }
+            Shared.selectedCategory = objects[indexPath.row]
+            
         }
         
         categoryTable.deselectRow(at: indexPath, animated: true)

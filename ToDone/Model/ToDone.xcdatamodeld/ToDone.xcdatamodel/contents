@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Achievements" representedClassName="Achievements" syncable="YES" codeGenerationType="class">
+        <attribute name="achieved" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="achievedDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateAchieved" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unachievedDesc" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toDo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ToDo" inverseName="category" inverseEntity="ToDo" syncable="YES"/>
+        <relationship name="toDo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ToDo" inverseName="category" inverseEntity="ToDo" syncable="YES"/>
     </entity>
     <entity name="SubToDo" representedClassName="SubToDo" syncable="YES" codeGenerationType="class">
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -23,5 +31,6 @@
         <element name="Category" positionX="-207" positionY="38" width="128" height="90"/>
         <element name="SubToDo" positionX="-54" positionY="-142" width="128" height="105"/>
         <element name="ToDo" positionX="-351" positionY="-157" width="128" height="135"/>
+        <element name="Achievements" positionX="-198" positionY="-27" width="128" height="135"/>
     </elements>
 </model>

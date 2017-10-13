@@ -8,23 +8,30 @@
 
 import UIKit
 import CoreData
+import StoreKit
 
-class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIGestureRecognizerDelegate {
+class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIGestureRecognizerDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
+    //MARK: UI Variables
     let settingsView = UIView()
     let categoryTable = UITableView()
     
     var tapGesture = UITapGestureRecognizer()
     
+    var selectedCategory: Category?
+    
     //MARK: CoreData Variables
     var categoryController: NSFetchedResultsController<Category>!
     let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+    
+    //MARK: StoreKit Variables
+    let network = NetworkIndicator()
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         attemptCategoryFetch()
-
         layoutCategoryTable()
         addGestureRecognizer()
         
@@ -34,6 +41,11 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         
         attemptCategoryFetch()
         categoryTable.reloadData()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         
     }
     
@@ -54,9 +66,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             
             if !categoryTable.bounds.contains(sender.location(in: categoryTable)) {
                 
-                let destination = MainVC()
-                let segue = UnwindSlideFromLeft(identifier: "unwindToLeft", source: self, destination: destination)
-                segue.perform()
+                performSegue(withIdentifier: "unwindToLeft", sender: nil)
                 
             }
         }
@@ -73,29 +83,53 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             
         }
         
-        return numOfCategories + 2
+        switch Shared.isPremium {
+        case true: numOfCategories += 1
+        case false: numOfCategories += 2
+        }
+        
+        return numOfCategories
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryCell
+        
         cell.backgroundColor = UIColor(red: 225 / 255, green: 225 / 255, blue: 225 / 255, alpha: 1)
         
         if indexPath.row == 0 {
             
-            cell.configurePurchaseCell()
+            switch Shared.isPremium {
+            case true: cell.configureAddCell()
+            case false: cell.configurePurchaseCell()
+            }
             
         } else if indexPath.row == 1 {
         
-            cell.configureAddCell()
+            switch Shared.isPremium {
+            case true:
+                if let objects = categoryController.fetchedObjects, objects.count > 0 {
+                    
+                    cell.clearCell()
+                    cell.configureCell(category: objects[indexPath.row - 1])
+                    
+                }
+            case false: cell.configureAddCell()
+            }
             
         } else {
             
             if let objects = categoryController.fetchedObjects, objects.count > 0 {
                 
-                cell.configureCell(category: objects[indexPath.row - 2])
-                
+                switch Shared.isPremium {
+                case true:
+                    cell.clearCell()
+                    cell.configureCell(category: objects[indexPath.row - 1])
+                case false:
+                    cell.clearCell()
+                    cell.configureCell(category: objects[indexPath.row - 2])
+                }
             }
         }
         
@@ -105,19 +139,86 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let objects = categoryController.fetchedObjects else { return }
+        
         if indexPath.row == 0 {
             
+            switch Shared.isPremium {
+            case true: performSegue(withIdentifier: "addCategory", sender: nil)
+            case false: buyProduct(productID: Products.premium.rawValue)
+            }
             
         } else if indexPath.row == 1 {
             
-            performSegue(withIdentifier: "addCategory", sender: nil)
+            switch Shared.isPremium {
+            case true:
+                Shared.selectedCategory = objects[indexPath.row - 1]
+                performSegue(withIdentifier: "unwindToLeft", sender: nil)
+            case false:
+                
+                if objects.count >= 5 {
+                    
+                    let alert = UIAlertController(title: "Premium Required", message: """
+                    To create more than 5 ToDo's, you must purchase ToDo ToDone Premium.
+                    Do you wish to purchase?
+                    """, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                        
+                        self.buyProduct(productID: Products.premium.rawValue)
+                        
+                    }))
+                    
+                    present(alert, animated: true, completion: nil)
+                    
+                } else {
+                 
+                    performSegue(withIdentifier: "addCategory", sender: nil)
+                    
+                }
+            }
             
         } else {
             
+            Shared.selectedCategory = objects[indexPath.row - 2]
+            performSegue(withIdentifier: "unwindToLeft", sender: nil)
             
         }
         
         categoryTable.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        var cellActions = [UITableViewRowAction]()
+        var beginningIndex = 0
+        
+        switch Shared.isPremium {
+        case true: beginningIndex = 1
+        case false: beginningIndex = 2
+        }
+        
+        if indexPath.row >= beginningIndex {
+            
+            let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: { action, index in
+                
+                guard let objects = self.categoryController.fetchedObjects else { return }
+                
+                let object = objects[indexPath.row - beginningIndex]
+                context.delete(object)
+                ad.saveContext()
+                
+                self.attemptCategoryFetch()
+                self.categoryTable.deleteRows(at: [indexPath], with: .automatic)
+                
+            })
+            
+            cellActions = [delete]
+            
+        }
+        
+        return cellActions
         
     }
 }

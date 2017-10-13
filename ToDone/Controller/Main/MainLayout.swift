@@ -13,11 +13,13 @@ extension MainVC {
     func layoutMenuButtons() {
         
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        settingsButton.backgroundColor = UIColor.orange
+        settingsButton.setImage(#imageLiteral(resourceName: "settings"), for: .normal)
+//        settingsButton.backgroundColor = UIColor.orange
         settingsButton.addTarget(self, action: #selector(MainVC.settingsPressed(sender:)), for: .touchUpInside)
         
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.backgroundColor = UIColor.orange
+        addButton.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+//        addButton.backgroundColor = UIColor.orange
         addButton.addTarget(self, action: #selector(MainVC.addPressed(sender:)), for: .touchUpInside)
         
         view.addSubview(settingsButton)
@@ -49,6 +51,7 @@ extension MainVC {
         toDoTable.register(ToDoCell.self, forCellReuseIdentifier: "toDoCell")
         toDoTable.translatesAutoresizingMaskIntoConstraints = false
         toDoTable.rowHeight = 44
+        toDoTable.clearsContextBeforeDrawing = true
         
         view.addSubview(toDoTable)
         

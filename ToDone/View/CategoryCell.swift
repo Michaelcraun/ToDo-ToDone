@@ -10,6 +10,17 @@ import UIKit
 
 class CategoryCell: UITableViewCell {
     
+    func clearCell() {
+        
+        let subviews = self.subviews
+        
+        for subview in subviews {
+            
+            subview.removeFromSuperview()
+            
+        }
+    }
+    
     func configurePurchaseCell() {
         
         let purchaseLabel = UILabel()
@@ -17,7 +28,7 @@ class CategoryCell: UITableViewCell {
         purchaseLabel.translatesAutoresizingMaskIntoConstraints = false
         purchaseLabel.font = Shared.displayFont
         purchaseLabel.textColor = UIColor.red
-        purchaseLabel.text = "Purchase ToDone"
+        purchaseLabel.text = "Purchase ToDo ToDone"
         purchaseLabel.sizeToFit()
         
         self.addSubview(purchaseLabel)

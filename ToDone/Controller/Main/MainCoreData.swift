@@ -37,57 +37,20 @@ extension MainVC {
         
     }
     
-    func generateTestData() {
-        
-        let home = Category(context: context)
-        home.title = "Home"
-        home.color = UIColor.blue
-        
-        let general = Category(context: context)
-        general.title = "General"
-        general.color = UIColor.lightGray
-        
-        let socialAndFamily = Category(context: context)
-        socialAndFamily.title = "Social & Family"
-        socialAndFamily.color = UIColor.orange
-        
-        let dishes = SubToDo(context: context)
-        dishes.title = "Dishes"
-        dishes.completed = false
-        
-        let laundry = SubToDo(context: context)
-        laundry.title = "Laundry"
-        dishes.completed = false
-        
-        let chores = ToDo(context: context)
-        chores.title = "Chores"
-        chores.completed = 33
-        chores.category = home
-        chores.deadline = Date()
-        chores.addToSubToDo(dishes)
-        
-        let familyMeeting = ToDo(context: context)
-        familyMeeting.title = "Family Meeting"
-        familyMeeting.completed = 20
-        familyMeeting.category = socialAndFamily
-        familyMeeting.deadline = Date()
-        
-        let drinkWater = ToDo(context: context)
-        drinkWater.title = "Drink 8 bottles of water per day"
-        drinkWater.completed = Int16((3/8) * 100)
-        drinkWater.category = general
-        drinkWater.deadline = Date()
-        
-        ad.saveContext()
-        
-    }
-    
     func attemptToDoFetch() {
         
-        let dateSort = NSSortDescriptor(key: "dateAdded", ascending: true)
-        //TODO: Add category sort
-        
+        let dateSort = NSSortDescriptor(key: "dateAdded", ascending: false)
         toDoFetchRequest.sortDescriptors = [dateSort]
+        
+        if Shared.selectedCategory != nil {
+            
+            let filter = Shared.selectedCategory?.title
+            let predicate = NSPredicate(format: "category = %@", filter!)
+            toDoFetchRequest.predicate = predicate
+            
+            Shared.selectedCategory = nil
+            
+        }
         
         let controller = NSFetchedResultsController(fetchRequest: toDoFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = self
@@ -105,24 +68,24 @@ extension MainVC {
         }
     }
     
-    func attemptCategoryFetch() {
-        
-        let titleSort = NSSortDescriptor(key: "title", ascending: true)
-        categoryFetchRequest.sortDescriptors = [titleSort]
-        
-        let controller = NSFetchedResultsController(fetchRequest: categoryFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        controller.delegate = self
-        self.categoryController = controller
-        
-        do {
-            
-            try controller.performFetch()
-            
-        } catch {
-            
-            let error = error as NSError
-            print("Error: \(error)")
-            
-        }
-    }
+//    func attemptCategoryFetch() {
+//        
+//        let titleSort = NSSortDescriptor(key: "title", ascending: true)
+//        categoryFetchRequest.sortDescriptors = [titleSort]
+//        
+//        let controller = NSFetchedResultsController(fetchRequest: categoryFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+//        controller.delegate = self
+//        self.categoryController = controller
+//        
+//        do {
+//            
+//            try controller.performFetch()
+//            
+//        } catch {
+//            
+//            let error = error as NSError
+//            print("Error: \(error)")
+//            
+//        }
+//    }
 }

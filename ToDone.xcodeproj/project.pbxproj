@@ -20,7 +20,9 @@
 		9B0728A11F8B996A00256A68 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0728A01F8B996A00256A68 /* CategoryCell.swift */; };
 		9B19BBEB1F8C494D00607DC9 /* SettingsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B19BBEA1F8C494D00607DC9 /* SettingsLayout.swift */; };
 		9B19BBED1F8C495600607DC9 /* SettingsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B19BBEC1F8C495600607DC9 /* SettingsCoreData.swift */; };
+		9B20923B1F8FE48D00D6BDD6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B20923A1F8FE48D00D6BDD6 /* Network.swift */; };
 		9B45AC4D1F8C4C3C000CB75B /* CustomSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45AC4C1F8C4C3C000CB75B /* CustomSegues.swift */; };
+		9B4BFC141F9104400062F88A /* MainSKHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4BFC131F9104400062F88A /* MainSKHelper.swift */; };
 		9B85AAEC1F8B093600E02AA0 /* AddToDoCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAEB1F8B093600E02AA0 /* AddToDoCoreData.swift */; };
 		9B85AAF01F8B146F00E02AA0 /* SubToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAEF1F8B146F00E02AA0 /* SubToDoCell.swift */; };
 		9B85AAF31F8B94AD00E02AA0 /* AddDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAF21F8B94AD00E02AA0 /* AddDetailsVC.swift */; };
@@ -35,6 +37,8 @@
 		9BE660181F8E96BB00EB26E7 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE660171F8E96BB00EB26E7 /* AddCategoryVC.swift */; };
 		9BE6601A1F8E96D100EB26E7 /* AddCategoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE660191F8E96D100EB26E7 /* AddCategoryLayout.swift */; };
 		9BE6601C1F8E97E100EB26E7 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE6601B1F8E97E100EB26E7 /* ColorPicker.swift */; };
+		9BF4DBD01F9109EB007AAA05 /* AddToDoSKHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF4DBCF1F9109EB007AAA05 /* AddToDoSKHelper.swift */; };
+		9BF4DBD21F910AF2007AAA05 /* SettingsSKHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF4DBD11F910AF2007AAA05 /* SettingsSKHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +57,9 @@
 		9B0728A01F8B996A00256A68 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9B19BBEA1F8C494D00607DC9 /* SettingsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLayout.swift; sourceTree = "<group>"; };
 		9B19BBEC1F8C495600607DC9 /* SettingsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoreData.swift; sourceTree = "<group>"; };
+		9B20923A1F8FE48D00D6BDD6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		9B45AC4C1F8C4C3C000CB75B /* CustomSegues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegues.swift; sourceTree = "<group>"; };
+		9B4BFC131F9104400062F88A /* MainSKHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSKHelper.swift; sourceTree = "<group>"; };
 		9B85AAEB1F8B093600E02AA0 /* AddToDoCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoCoreData.swift; sourceTree = "<group>"; };
 		9B85AAEF1F8B146F00E02AA0 /* SubToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubToDoCell.swift; sourceTree = "<group>"; };
 		9B85AAF21F8B94AD00E02AA0 /* AddDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailsVC.swift; sourceTree = "<group>"; };
@@ -64,10 +70,13 @@
 		9BA581AB1F890E58008C4976 /* AddToDoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoLayout.swift; sourceTree = "<group>"; };
 		9BA581B11F896892008C4976 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		9BA581B31F898E39008C4976 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
+		9BB82DC61F90146B0073DFFA /* ToDone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDone.entitlements; sourceTree = "<group>"; };
 		9BE5EF571F8C469000626FED /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		9BE660171F8E96BB00EB26E7 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 		9BE660191F8E96D100EB26E7 /* AddCategoryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryLayout.swift; sourceTree = "<group>"; };
 		9BE6601B1F8E97E100EB26E7 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		9BF4DBCF1F9109EB007AAA05 /* AddToDoSKHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoSKHelper.swift; sourceTree = "<group>"; };
+		9BF4DBD11F910AF2007AAA05 /* SettingsSKHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSKHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +109,7 @@
 		9B0010011F87F7E400986BAE /* ToDone */ = {
 			isa = PBXGroup;
 			children = (
+				9BB82DC61F90146B0073DFFA /* ToDone.entitlements */,
 				9B00101F1F87FD8500986BAE /* View */,
 				9B00101A1F87F8CC00986BAE /* Model */,
 				9B0010181F87F8BB00986BAE /* Controller */,
@@ -120,6 +130,7 @@
 				9B85AAF11F8B948200E02AA0 /* AddDetailsVC */,
 				9BE5EF561F8C466F00626FED /* SettingsVC */,
 				9BB92C431F8E9342002BF872 /* AddCategory */,
+				9B20923A1F8FE48D00D6BDD6 /* Network.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -129,6 +140,7 @@
 			children = (
 				9B0010041F87F7E400986BAE /* MainVC.swift */,
 				9BA581A61F8904B5008C4976 /* MainCoreData.swift */,
+				9B4BFC131F9104400062F88A /* MainSKHelper.swift */,
 				9B00101B1F87F92E00986BAE /* MainLayout.swift */,
 			);
 			path = Main;
@@ -181,6 +193,7 @@
 			children = (
 				9BA581A91F890E2F008C4976 /* AddToDoVC.swift */,
 				9B85AAEB1F8B093600E02AA0 /* AddToDoCoreData.swift */,
+				9BF4DBCF1F9109EB007AAA05 /* AddToDoSKHelper.swift */,
 				9BA581AB1F890E58008C4976 /* AddToDoLayout.swift */,
 			);
 			path = AddToDo;
@@ -200,6 +213,7 @@
 			children = (
 				9BE5EF571F8C469000626FED /* SettingsVC.swift */,
 				9B19BBEC1F8C495600607DC9 /* SettingsCoreData.swift */,
+				9BF4DBD11F910AF2007AAA05 /* SettingsSKHelper.swift */,
 				9B19BBEA1F8C494D00607DC9 /* SettingsLayout.swift */,
 			);
 			path = SettingsVC;
@@ -238,6 +252,11 @@
 					9B000FFE1F87F7E400986BAE = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -290,13 +309,17 @@
 				9B0010241F87FEFA00986BAE /* CategoryView.swift in Sources */,
 				9B0010211F87FD9800986BAE /* ToDoCell.swift in Sources */,
 				9B85AAF71F8B94D800E02AA0 /* AddDetailsLayout.swift in Sources */,
+				9BF4DBD01F9109EB007AAA05 /* AddToDoSKHelper.swift in Sources */,
 				9B85AAF01F8B146F00E02AA0 /* SubToDoCell.swift in Sources */,
 				9BA581A71F8904B5008C4976 /* MainCoreData.swift in Sources */,
 				9B00100B1F87F7E400986BAE /* ToDone.xcdatamodeld in Sources */,
+				9B4BFC141F9104400062F88A /* MainSKHelper.swift in Sources */,
 				9B19BBEB1F8C494D00607DC9 /* SettingsLayout.swift in Sources */,
 				9B0010051F87F7E400986BAE /* MainVC.swift in Sources */,
 				9BA581AA1F890E2F008C4976 /* AddToDoVC.swift in Sources */,
+				9B20923B1F8FE48D00D6BDD6 /* Network.swift in Sources */,
 				9B00101C1F87F92E00986BAE /* MainLayout.swift in Sources */,
+				9BF4DBD21F910AF2007AAA05 /* SettingsSKHelper.swift in Sources */,
 				9BE660181F8E96BB00EB26E7 /* AddCategoryVC.swift in Sources */,
 				9B0010031F87F7E400986BAE /* AppDelegate.swift in Sources */,
 				9BE6601C1F8E97E100EB26E7 /* ColorPicker.swift in Sources */,
@@ -438,11 +461,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ToDone/ToDone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 96SB47X67B;
 				INFOPLIST_FILE = ToDone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CraunicProductions.ToDone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CraunicProductions.HoneyDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -453,11 +477,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ToDone/ToDone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 96SB47X67B;
 				INFOPLIST_FILE = ToDone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CraunicProductions.ToDone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CraunicProductions.HoneyDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

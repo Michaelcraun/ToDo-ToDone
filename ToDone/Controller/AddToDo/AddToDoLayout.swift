@@ -115,8 +115,8 @@ extension AddToDoVC {
             
         } else {
             
-            selectedCateogry.color = UIColor.clear
-            selectedCateogry.title = "Select a category"
+            selectedCateogry?.color = UIColor.clear
+            selectedCateogry?.title = "Select a category"
             
         }
         
@@ -126,14 +126,14 @@ extension AddToDoVC {
                                       height: 30)
         categoryButton.addTarget(self, action: #selector(AddToDoVC.selectCategory(sender:)), for: .touchUpInside)
         
-        categoryView.backgroundColor = selectedCateogry.color as? UIColor
+        categoryView.backgroundColor = selectedCateogry?.color as? UIColor
         categoryView.frame = CGRect(x: 10,
                                     y: categoryButton.frame.height / 2 - 5,
                                     width: 10,
                                     height: 10)
         
         categoryLabel.font = Shared.displayFont
-        categoryLabel.text = selectedCateogry.title
+        categoryLabel.text = selectedCateogry?.title
         categoryLabel.sizeToFit()
         categoryLabel.frame = CGRect(x: 30,
                                      y: categoryButton.frame.height / 2 - categoryLabel.frame.height / 2,

@@ -23,13 +23,14 @@ extension AddToDoVC {
         
         if let date = toDoToEdit?.deadline {
 
+            deadline = date
             dateString = dateFormatter.string(from: date)
             
         }
         
         titleInput.text = toDoToEdit?.title
         deadlineInput.text = dateString
-        selectedCateogry = (toDoToEdit?.category)!
+        selectedCateogry = toDoToEdit?.category
         categoryView.backgroundColor = toDoToEdit?.category?.color as? UIColor
         categoryLabel.text = toDoToEdit?.category?.title
         subToDoToEdit = subToDos.sorted { (subToDos1, subToDos2) -> Bool in

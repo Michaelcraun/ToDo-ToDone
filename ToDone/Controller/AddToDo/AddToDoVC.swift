@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import StoreKit
 
-class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
     //MARK: New ToDo Form Variables
     let cancelButton = TextButton()
@@ -23,7 +24,7 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     
     let pickerView = UIView()
     let deadlinePicker = UIDatePicker()
-    var deadline = Date()
+    var deadline: Date?
     var dateString = ""
     
     //MARK: CoreData Variables
@@ -32,9 +33,13 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     var subToDoController: NSFetchedResultsController<SubToDo>!
     let subToDoFetchRequest: NSFetchRequest<SubToDo> = SubToDo.fetchRequest()
     var categories = [Category]()
-    var selectedCateogry = Category()
+    var selectedCateogry: Category?
     var toDoToEdit: ToDo?
     var subToDoToEdit = [SubToDo]()
+    
+    //MARK: StoreKit Variables
+    let network = NetworkIndicator()
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +92,7 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     @objc func donePressed(sender: UIButton!) {
         
         var newToDo: ToDo!
+        var percentageComplete = 0.0
         
         if toDoToEdit != nil {
             
@@ -99,8 +105,8 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
         
         if titleInput.text != "" {
             
-            let totalSubToDos = Double(subToDoToEdit.count)
-            var subToDosCompleted: Double = 0
+            let totalSubToDos = subToDoToEdit.count
+            var subToDosCompleted = 0.0
             
             newToDo.title = titleInput.text!
             newToDo.dateAdded = Date()
@@ -119,9 +125,27 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
                 }
             }
             
-            let percentageComplete = (subToDosCompleted / totalSubToDos) * 100
+            if totalSubToDos != 0 {
+                
+                percentageComplete = (subToDosCompleted / Double(totalSubToDos)) * 100
+                
+            }
+            
             let intCompleted = Int(percentageComplete)
             newToDo.completed = Int16(intCompleted)
+            
+            if deadline == nil {
+                
+                let reminderDate = Date().addingTimeInterval(86400)
+                ad.scheduleRecurringReminder(at: reminderDate, withToDo: newToDo)
+                
+            } else {
+                
+                //            let reminderDate = deadline.addingTimeInterval(60)
+                let reminderDate = deadline!.addingTimeInterval(-86400)
+                ad.scheduleNotification(at: reminderDate, withToDo: newToDo)
+                
+            }
             
             ad.saveContext()
             dismiss(animated: true, completion: nil)
@@ -209,6 +233,7 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
             
         } else {
             
+            cell.clearCell()
             cell.configureCell(subToDo: subToDoToEdit[indexPath.row - 1])
             
         }
@@ -225,7 +250,34 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
             
             let transition = "addSubToDo"
             
-            performSegue(withIdentifier: "addDetails", sender: transition)
+            if Shared.isPremium {
+                
+                performSegue(withIdentifier: "addDetails", sender: transition)
+                
+            } else {
+                
+                if subToDoToEdit.count >= 5 {
+                    
+                    let alert = UIAlertController(title: "Premium Required", message: """
+                    To create more than 5 ToDo's, you must purchase ToDo Premium.
+
+                    Do you wish to purchase?
+                    """, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                        
+                        self.buyProduct(productID: Products.premium.rawValue)
+                        
+                    }))
+                    
+                    present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    performSegue(withIdentifier: "addDetails", sender: transition)
+                    
+                }
+            }
             
         } else {
             
@@ -237,5 +289,27 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
             subToDoTable.reloadData()
             
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        var cellActions = [UITableViewRowAction]()
+        
+        if indexPath.row >= 1 {
+         
+            let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: { action, index in
+                
+                print(self.subToDoToEdit[indexPath.row - 1])
+                self.subToDoToEdit.remove(at: indexPath.row - 1)
+                self.subToDoTable.deleteRows(at: [indexPath], with: .automatic)
+                
+            })
+            
+            cellActions = [delete]
+            
+        }
+        
+        return cellActions
+        
     }
 }

@@ -16,7 +16,7 @@ class AddCategoryVC: UIViewController, colorDelegate {
     let titleInput = InputField()
     let colorPicker = ColorPicker()
     
-    var selectedColor: UIColor?
+    var selectedColor = UIColor.lightGray
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class AddCategoryVC: UIViewController, colorDelegate {
             newCategory.title = titleInput.text!
             newCategory.color = selectedColor
             
-//            ad.saveContext()
+            ad.saveContext()
             dismiss(animated: true, completion: nil)
             
         } else {
