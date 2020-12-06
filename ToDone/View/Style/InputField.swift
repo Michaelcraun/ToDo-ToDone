@@ -9,19 +9,16 @@
 import UIKit
 
 class InputField: UITextField {
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.font = Shared.displayFont
-        
+        self.font = displayFont
     }
     
     func addLabel(title: String) {
-        
         let titleLabel = UILabel()
         
-        titleLabel.font = Shared.smallFont
+        titleLabel.font = smallFont
         titleLabel.textColor = UIColor.lightGray
         titleLabel.text = title
         titleLabel.sizeToFit()

@@ -13,29 +13,23 @@ extension SettingsVC {
     
     func checkPurchases() {
         
-        print("checkPurchases()")
-        
-        Shared.isPremium = defaults.bool(forKey: "isPremium")
+        Shared.instance.isPremium = defaults.bool(forKey: "isPremium")
         
     }
     
     func buyProduct(productID: String) {
         
-        print("buyProduct(productID:)")
-        print(productID)
-        
-        for product in Shared.productList {
+        for product in Shared.instance.productList {
             
             let productToCheck = product.productIdentifier
             
             if productToCheck == productID {
                 
-                Shared.productPurchasing = product
-                print(Shared.productPurchasing.productIdentifier)
+                Shared.instance.productPurchasing = product
                 
                 NetworkIndicator.networkOperationStarted()
                 
-                let pay = SKPayment(product: Shared.productPurchasing)
+                let pay = SKPayment(product: Shared.instance.productPurchasing)
                 
                 SKPaymentQueue.default().add(self)
                 SKPaymentQueue.default().add(pay)
@@ -48,18 +42,13 @@ extension SettingsVC {
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         
-        print("productsRequest()")
-        
         NetworkIndicator.networkOperationStarted()
         
         let myProducts = response.products
         
-        print(myProducts)
-        
         for product in myProducts {
             
-            print(product.productIdentifier)
-            Shared.productList.append(product)
+            Shared.instance.productList.append(product)
             
         }
         
@@ -69,8 +58,6 @@ extension SettingsVC {
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         
-        print("paymentQueueRestoreCompletedTransactionFinished")
-        
         for transaction in queue.transactions {
             
             let t: SKPaymentTransaction = transaction
@@ -78,8 +65,8 @@ extension SettingsVC {
             
             switch productID {
             case Products.premium.rawValue:
-                Shared.isPremium = true
-                defaults.set(Shared.isPremium, forKey: "isPremium")
+                Shared.instance.isPremium = true
+                defaults.set(Shared.instance.isPremium, forKey: "isPremium")
             default: break
             }
         }
@@ -95,24 +82,20 @@ extension SettingsVC {
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         
-        print("paymentQueue()")
-        
         NetworkIndicator.networkOperationStarted()
         
         for transaction: AnyObject in transactions {
             
             let trans = transaction as! SKPaymentTransaction
             
-            print(trans.transactionState.rawValue)
-            
             switch trans.transactionState {
             case .purchased:
-                let productID = Shared.productPurchasing.productIdentifier
+                let productID = Shared.instance.productPurchasing.productIdentifier
                 
                 switch productID {
                 case Products.premium.rawValue:
-                    Shared.isPremium = true
-                    defaults.set(Shared.isPremium, forKey: "isPremium")
+                    Shared.instance.isPremium = true
+                    defaults.set(Shared.instance.isPremium, forKey: "isPremium")
                 default: break
                 }
                 

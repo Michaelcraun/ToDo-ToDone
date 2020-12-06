@@ -41,15 +41,13 @@ extension AddToDoVC {
     }
     
     func layoutTitleInput() {
-        
         titleInput.frame = CGRect(x: 10,
                                   y: 80,
-                                  width: Shared.screenWidth - 20,
+                                  width: screenWidth - 20,
                                   height: 40)
         titleInput.addLabel(title: "ToDo:")
         
         view.addSubview(titleInput)
-        
     }
     
     func layoutDeadlineInput() {
@@ -72,7 +70,7 @@ extension AddToDoVC {
         
         deadlineInput.frame = CGRect(x: 10,
                                      y: 130,
-                                     width: Shared.screenWidth - 20,
+                                     width: screenWidth - 20,
                                      height: 40)
         deadlineInput.addLabel(title: "Deadline:")
         
@@ -82,7 +80,7 @@ extension AddToDoVC {
         deadlinePicker.backgroundColor = UIColor.clear
         deadlinePicker.frame = CGRect(x: 0,
                                       y: toolbar.frame.height,
-                                      width: Shared.screenWidth,
+                                      width: screenWidth,
                                       height: 200)
         
         toolbar.barStyle = UIBarStyle.default
@@ -94,8 +92,8 @@ extension AddToDoVC {
         toolbar.isUserInteractionEnabled = true
         
         pickerView.frame = CGRect(x: 0,
-                                  y: Shared.screenHeight - 200 - toolbar.frame.height,
-                                  width: Shared.screenWidth,
+                                  y: screenHeight - 200 - toolbar.frame.height,
+                                  width: screenWidth,
                                   height: 200 + toolbar.frame.height)
         
         deadlineInput.inputView = pickerView
@@ -122,7 +120,7 @@ extension AddToDoVC {
         
         categoryButton.frame = CGRect(x: 10,
                                       y: 180,
-                                      width: Shared.screenWidth - 20,
+                                      width: screenWidth - 20,
                                       height: 30)
         categoryButton.addTarget(self, action: #selector(AddToDoVC.selectCategory(sender:)), for: .touchUpInside)
         
@@ -132,7 +130,7 @@ extension AddToDoVC {
                                     width: 10,
                                     height: 10)
         
-        categoryLabel.font = Shared.displayFont
+        categoryLabel.font = displayFont
         categoryLabel.text = selectedCateogry?.title
         categoryLabel.sizeToFit()
         categoryLabel.frame = CGRect(x: 30,
@@ -156,8 +154,8 @@ extension AddToDoVC {
         subToDoTable.rowHeight = 30
         subToDoTable.frame = CGRect(x: 0,
                                     y: 220,
-                                    width: Shared.screenWidth,
-                                    height: Shared.screenHeight - 200)
+                                    width: screenWidth,
+                                    height: screenHeight - 200)
         
         view.addSubview(subToDoTable)
         

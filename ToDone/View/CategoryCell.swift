@@ -26,7 +26,7 @@ class CategoryCell: UITableViewCell {
         let purchaseLabel = UILabel()
         
         purchaseLabel.translatesAutoresizingMaskIntoConstraints = false
-        purchaseLabel.font = Shared.displayFont
+        purchaseLabel.font = displayFont
         purchaseLabel.textColor = UIColor.red
         purchaseLabel.text = "Purchase ToDo ToDone"
         purchaseLabel.sizeToFit()
@@ -43,12 +43,33 @@ class CategoryCell: UITableViewCell {
         NSLayoutConstraint.activate(purchaseConstraints)
         
     }
+    
+    func configureRestoreCell() {
+        
+        let restoreLabel = UILabel()
+        
+        restoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        restoreLabel.font = displayFont
+        restoreLabel.textColor = UIColor.red
+        restoreLabel.text = "Restore Purchases"
+        restoreLabel.sizeToFit()
+        
+        self.addSubview(restoreLabel)
+        
+        let restoreX = restoreLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let restoreY = restoreLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        let restoreConstraints = [restoreX, restoreY]
+        
+        NSLayoutConstraint.activate(restoreConstraints)
+        
+    }
 
     func configureAddCell() {
         
         let addLabel = UILabel()
         
-        addLabel.font = Shared.displayFont
+        addLabel.font = displayFont
         addLabel.textColor = UIColor.green
         addLabel.text = "Add Category"
         addLabel.sizeToFit()
@@ -76,7 +97,7 @@ class CategoryCell: UITableViewCell {
         categoryView.translatesAutoresizingMaskIntoConstraints = false
         
         categoryLabel.text = category.title
-        categoryLabel.font = Shared.displayFont
+        categoryLabel.font = displayFont
         categoryLabel.sizeToFit()
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         

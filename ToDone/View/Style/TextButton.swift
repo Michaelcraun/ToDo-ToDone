@@ -14,7 +14,7 @@ class TextButton: UIButton {
         
         let titleLbl = UILabel()
         
-        titleLbl.font = Shared.displayFont
+        titleLbl.font = displayFont
         titleLbl.textColor = color
         titleLbl.text = title
         titleLbl.sizeToFit()

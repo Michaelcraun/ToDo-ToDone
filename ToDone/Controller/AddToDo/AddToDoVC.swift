@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import StoreKit
 
-class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+class AddToDoVC: UIViewController, Alertable, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
     //MARK: New ToDo Form Variables
     let cancelButton = TextButton()
@@ -36,6 +36,7 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     var selectedCateogry: Category?
     var toDoToEdit: ToDo?
     var subToDoToEdit = [SubToDo]()
+    var toDoToSave: ToDo?
     
     //MARK: StoreKit Variables
     let network = NetworkIndicator()
@@ -62,23 +63,23 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         
-        if Shared.selectedCategory != nil {
+        if Shared.instance.selectedCategory != nil {
             
-            selectedCateogry = Shared.selectedCategory!
+            selectedCateogry = Shared.instance.selectedCategory!
             
-            categoryView.backgroundColor = Shared.selectedCategory?.color as? UIColor
-            categoryLabel.text = Shared.selectedCategory?.title
+            categoryView.backgroundColor = Shared.instance.selectedCategory?.color as? UIColor
+            categoryLabel.text = Shared.instance.selectedCategory?.title
             
-            Shared.selectedCategory = nil
+            Shared.instance.selectedCategory = nil
             
         }
         
-        if Shared.createdSubToDo != nil {
+        if Shared.instance.createdSubToDo != nil {
             
-            subToDoToEdit.append(Shared.createdSubToDo!)
+            subToDoToEdit.append(Shared.instance.createdSubToDo!)
             subToDoTable.reloadData()
             
-            Shared.createdSubToDo = nil
+            Shared.instance.createdSubToDo = nil
             
         }
     }
@@ -90,17 +91,12 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     }
     
     @objc func donePressed(sender: UIButton!) {
-        
-        var newToDo: ToDo!
         var percentageComplete = 0.0
         
         if toDoToEdit != nil {
-            
-            newToDo = toDoToEdit
-            
+            toDoToSave = toDoToEdit
         } else {
-            
-            newToDo = ToDo(context: context)
+            toDoToSave = ToDo(context: context)
         }
         
         if titleInput.text != "" {
@@ -108,56 +104,45 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
             let totalSubToDos = subToDoToEdit.count
             var subToDosCompleted = 0.0
             
-            newToDo.title = titleInput.text!
-            newToDo.dateAdded = Date()
-            newToDo.deadline = deadline
-            newToDo.category = selectedCateogry
-            newToDo.subToDo = nil
+            toDoToSave?.title = titleInput.text!
+            toDoToSave?.dateAdded = Date()
+            toDoToSave?.deadline = deadline
+            toDoToSave?.category = selectedCateogry
+            toDoToSave?.subToDo = nil
             
             for subToDo in subToDoToEdit {
-                
-                newToDo.addToSubToDo(subToDo)
-                
+                toDoToSave?.addToSubToDo(subToDo)
                 if subToDo.completed {
-                    
                     subToDosCompleted += 1
-                    
                 }
             }
             
-            if totalSubToDos != 0 {
-                
-                percentageComplete = (subToDosCompleted / Double(totalSubToDos)) * 100
-                
-            }
+            if totalSubToDos != 0 { percentageComplete = (subToDosCompleted / Double(totalSubToDos)) * 100 }
             
             let intCompleted = Int(percentageComplete)
-            newToDo.completed = Int16(intCompleted)
+            toDoToSave?.completed = Int16(intCompleted)
             
             if deadline == nil {
-                
-                let reminderDate = Date().addingTimeInterval(86400)
-                ad.scheduleRecurringReminder(at: reminderDate, withToDo: newToDo)
-                
+                showAlert(.recurringReminder)
             } else {
-                
-                //            let reminderDate = deadline.addingTimeInterval(60)
-                let reminderDate = deadline!.addingTimeInterval(-86400)
-                ad.scheduleNotification(at: reminderDate, withToDo: newToDo)
-                
+                scheduleReminder(recurring: false)
             }
-            
-            ad.saveContext()
-            dismiss(animated: true, completion: nil)
-            
         } else {
-            
-            let alert = UIAlertController(title: "Missing Title", message: "Your ToDo is missing a title.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            present(alert, animated: true, completion: nil)
-            
+            showAlert(.missingTitle)
         }
+    }
+    
+    func scheduleReminder(recurring: Bool) {
+        if recurring {
+            let reminderDate = Date().addingTimeInterval(86400)
+            ad.scheduleRecurringReminder(at: reminderDate, withToDo: toDoToSave!)
+            ad.saveContext()
+        } else {
+            let reminderDate = deadline!.addingTimeInterval(-86400)
+            ad.scheduleNotification(at: reminderDate, withToDo: toDoToSave!)
+            ad.saveContext()
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func donePicker(sender: UIBarButtonItem!) {
@@ -243,73 +228,38 @@ class AddToDoVC: UIViewController, NSFetchedResultsControllerDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        subToDoTable.deselectRow(at: indexPath, animated: true)
-        
         if indexPath.row == 0 {
-            
             let transition = "addSubToDo"
             
-            if Shared.isPremium {
-                
+            if Shared.instance.isPremium {
                 performSegue(withIdentifier: "addDetails", sender: transition)
-                
             } else {
-                
                 if subToDoToEdit.count >= 5 {
-                    
-                    let alert = UIAlertController(title: "Premium Required", message: """
-                    To create more than 5 ToDo's, you must purchase ToDo Premium.
-
-                    Do you wish to purchase?
-                    """, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
-                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                        
-                        self.buyProduct(productID: Products.premium.rawValue)
-                        
-                    }))
-                    
-                    present(alert, animated: true, completion: nil)
-                    
+                    showAlert(.premiumRequired)
                 } else {
-                    
                     performSegue(withIdentifier: "addDetails", sender: transition)
-                    
                 }
             }
-            
         } else {
-            
             switch subToDoToEdit[indexPath.row - 1].completed {
             case true: subToDoToEdit[indexPath.row - 1].completed = false
             case false: subToDoToEdit[indexPath.row - 1].completed = true
             }
-            
             subToDoTable.reloadData()
-            
         }
+        
+        subToDoTable.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        var cellActions = [UITableViewRowAction]()
-        
-        if indexPath.row >= 1 {
-         
-            let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: { action, index in
-                
-                print(self.subToDoToEdit[indexPath.row - 1])
-                self.subToDoToEdit.remove(at: indexPath.row - 1)
-                self.subToDoTable.deleteRows(at: [indexPath], with: .automatic)
-                
-            })
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: { action, index in
             
-            cellActions = [delete]
-            
-        }
+            self.subToDoToEdit.remove(at: indexPath.row - 1)
+            self.subToDoTable.deleteRows(at: [indexPath], with: .automatic)
+        })
         
-        return cellActions
+        if indexPath.row > 0 { return [delete] }
         
+        return []
     }
 }

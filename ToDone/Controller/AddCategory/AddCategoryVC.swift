@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddCategoryVC: UIViewController, colorDelegate {
+class AddCategoryVC: UIViewController, ColorDelegate {
     
     let cancelButton = TextButton()
     let doneButton = TextButton()

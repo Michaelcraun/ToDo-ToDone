@@ -28,11 +28,16 @@
 		9B85AAF31F8B94AD00E02AA0 /* AddDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAF21F8B94AD00E02AA0 /* AddDetailsVC.swift */; };
 		9B85AAF51F8B94CD00E02AA0 /* AddDetailsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAF41F8B94CD00E02AA0 /* AddDetailsCoreData.swift */; };
 		9B85AAF71F8B94D800E02AA0 /* AddDetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85AAF61F8B94D800E02AA0 /* AddDetailsLayout.swift */; };
+		9BA0D96A20211FB700162364 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0D96920211FB700162364 /* UIViewExtension.swift */; };
+		9BA0D96D2021221000162364 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0D96C2021221000162364 /* Alertable.swift */; };
+		9BA0D96F2021236300162364 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0D96E2021236300162364 /* UIDeviceExtension.swift */; };
+		9BA0D9722021259100162364 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0D9712021259100162364 /* Constants.swift */; };
 		9BA581A71F8904B5008C4976 /* MainCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA581A61F8904B5008C4976 /* MainCoreData.swift */; };
 		9BA581AA1F890E2F008C4976 /* AddToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA581A91F890E2F008C4976 /* AddToDoVC.swift */; };
 		9BA581AC1F890E58008C4976 /* AddToDoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA581AB1F890E58008C4976 /* AddToDoLayout.swift */; };
 		9BA581B21F896892008C4976 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA581B11F896892008C4976 /* InputField.swift */; };
 		9BA581B41F898E39008C4976 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA581B31F898E39008C4976 /* TextButton.swift */; };
+		9BB1CB3E1F97C04700F788CE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB1CB3D1F97C04700F788CE /* StoreKit.framework */; };
 		9BE5EF581F8C469000626FED /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EF571F8C469000626FED /* SettingsVC.swift */; };
 		9BE660181F8E96BB00EB26E7 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE660171F8E96BB00EB26E7 /* AddCategoryVC.swift */; };
 		9BE6601A1F8E96D100EB26E7 /* AddCategoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE660191F8E96D100EB26E7 /* AddCategoryLayout.swift */; };
@@ -65,11 +70,16 @@
 		9B85AAF21F8B94AD00E02AA0 /* AddDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailsVC.swift; sourceTree = "<group>"; };
 		9B85AAF41F8B94CD00E02AA0 /* AddDetailsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailsCoreData.swift; sourceTree = "<group>"; };
 		9B85AAF61F8B94D800E02AA0 /* AddDetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailsLayout.swift; sourceTree = "<group>"; };
+		9BA0D96920211FB700162364 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		9BA0D96C2021221000162364 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		9BA0D96E2021236300162364 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		9BA0D9712021259100162364 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9BA581A61F8904B5008C4976 /* MainCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoreData.swift; sourceTree = "<group>"; };
 		9BA581A91F890E2F008C4976 /* AddToDoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoVC.swift; sourceTree = "<group>"; };
 		9BA581AB1F890E58008C4976 /* AddToDoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoLayout.swift; sourceTree = "<group>"; };
 		9BA581B11F896892008C4976 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		9BA581B31F898E39008C4976 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
+		9BB1CB3D1F97C04700F788CE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9BB82DC61F90146B0073DFFA /* ToDone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDone.entitlements; sourceTree = "<group>"; };
 		9BE5EF571F8C469000626FED /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		9BE660171F8E96BB00EB26E7 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
@@ -84,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB1CB3E1F97C04700F788CE /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +106,7 @@
 			children = (
 				9B0010011F87F7E400986BAE /* ToDone */,
 				9B0010001F87F7E400986BAE /* Products */,
+				9BB1CB3C1F97C04700F788CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,15 +121,18 @@
 		9B0010011F87F7E400986BAE /* ToDone */ = {
 			isa = PBXGroup;
 			children = (
-				9BB82DC61F90146B0073DFFA /* ToDone.entitlements */,
+				9BA0D9702021255F00162364 /* Data */,
+				9BA0D96B2021220600162364 /* Protocols */,
+				9BA0D96820211F4100162364 /* Presentation */,
+				9BA0D96720211F3800162364 /* Extensions */,
 				9B00101F1F87FD8500986BAE /* View */,
-				9B00101A1F87F8CC00986BAE /* Model */,
 				9B0010181F87F8BB00986BAE /* Controller */,
 				9B0010021F87F7E400986BAE /* AppDelegate.swift */,
 				9B0010061F87F7E400986BAE /* Main.storyboard */,
 				9B00100C1F87F7E400986BAE /* Assets.xcassets */,
 				9B00100E1F87F7E400986BAE /* LaunchScreen.storyboard */,
 				9B0010111F87F7E400986BAE /* Info.plist */,
+				9BB82DC61F90146B0073DFFA /* ToDone.entitlements */,
 			);
 			path = ToDone;
 			sourceTree = "<group>";
@@ -130,7 +145,6 @@
 				9B85AAF11F8B948200E02AA0 /* AddDetailsVC */,
 				9BE5EF561F8C466F00626FED /* SettingsVC */,
 				9BB92C431F8E9342002BF872 /* AddCategory */,
-				9B20923A1F8FE48D00D6BDD6 /* Network.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -144,15 +158,6 @@
 				9B00101B1F87F92E00986BAE /* MainLayout.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		9B00101A1F87F8CC00986BAE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9B0010091F87F7E400986BAE /* ToDone.xcdatamodeld */,
-				9B00101D1F87FA4900986BAE /* Shared.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9B00101F1F87FD8500986BAE /* View */ = {
@@ -188,6 +193,41 @@
 			path = AddDetailsVC;
 			sourceTree = "<group>";
 		};
+		9BA0D96720211F3800162364 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9BA0D96920211FB700162364 /* UIViewExtension.swift */,
+				9BA0D96E2021236300162364 /* UIDeviceExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9BA0D96820211F4100162364 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9BA0D96B2021220600162364 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9BA0D96C2021221000162364 /* Alertable.swift */,
+				9B20923A1F8FE48D00D6BDD6 /* Network.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		9BA0D9702021255F00162364 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9B0010091F87F7E400986BAE /* ToDone.xcdatamodeld */,
+				9B00101D1F87FA4900986BAE /* Shared.swift */,
+				9BA0D9712021259100162364 /* Constants.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		9BA581A81F890E06008C4976 /* AddToDo */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +237,14 @@
 				9BA581AB1F890E58008C4976 /* AddToDoLayout.swift */,
 			);
 			path = AddToDo;
+			sourceTree = "<group>";
+		};
+		9BB1CB3C1F97C04700F788CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BB1CB3D1F97C04700F788CE /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9BB92C431F8E9342002BF872 /* AddCategory */ = {
@@ -253,6 +301,9 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -296,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BA0D96A20211FB700162364 /* UIViewExtension.swift in Sources */,
 				9BE5EF581F8C469000626FED /* SettingsVC.swift in Sources */,
 				9B19BBED1F8C495600607DC9 /* SettingsCoreData.swift in Sources */,
 				9B45AC4D1F8C4C3C000CB75B /* CustomSegues.swift in Sources */,
@@ -304,6 +356,7 @@
 				9B85AAF31F8B94AD00E02AA0 /* AddDetailsVC.swift in Sources */,
 				9BA581B21F896892008C4976 /* InputField.swift in Sources */,
 				9B85AAEC1F8B093600E02AA0 /* AddToDoCoreData.swift in Sources */,
+				9BA0D96D2021221000162364 /* Alertable.swift in Sources */,
 				9B0728A11F8B996A00256A68 /* CategoryCell.swift in Sources */,
 				9B85AAF51F8B94CD00E02AA0 /* AddDetailsCoreData.swift in Sources */,
 				9B0010241F87FEFA00986BAE /* CategoryView.swift in Sources */,
@@ -317,12 +370,14 @@
 				9B19BBEB1F8C494D00607DC9 /* SettingsLayout.swift in Sources */,
 				9B0010051F87F7E400986BAE /* MainVC.swift in Sources */,
 				9BA581AA1F890E2F008C4976 /* AddToDoVC.swift in Sources */,
+				9BA0D9722021259100162364 /* Constants.swift in Sources */,
 				9B20923B1F8FE48D00D6BDD6 /* Network.swift in Sources */,
 				9B00101C1F87F92E00986BAE /* MainLayout.swift in Sources */,
 				9BF4DBD21F910AF2007AAA05 /* SettingsSKHelper.swift in Sources */,
 				9BE660181F8E96BB00EB26E7 /* AddCategoryVC.swift in Sources */,
 				9B0010031F87F7E400986BAE /* AppDelegate.swift in Sources */,
 				9BE6601C1F8E97E100EB26E7 /* ColorPicker.swift in Sources */,
+				9BA0D96F2021236300162364 /* UIDeviceExtension.swift in Sources */,
 				9BA581AC1F890E58008C4976 /* AddToDoLayout.swift in Sources */,
 				9BE6601A1F8E96D100EB26E7 /* AddCategoryLayout.swift in Sources */,
 			);

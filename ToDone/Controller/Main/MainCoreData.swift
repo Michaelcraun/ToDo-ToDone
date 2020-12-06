@@ -42,13 +42,13 @@ extension MainVC {
         let dateSort = NSSortDescriptor(key: "dateAdded", ascending: false)
         toDoFetchRequest.sortDescriptors = [dateSort]
         
-        if Shared.selectedCategory != nil {
+        if Shared.instance.selectedCategory != nil {
             
-            let filter = Shared.selectedCategory?.title
+            let filter = Shared.instance.selectedCategory?.title
             let predicate = NSPredicate(format: "category = %@", filter!)
             toDoFetchRequest.predicate = predicate
             
-            Shared.selectedCategory = nil
+            Shared.instance.selectedCategory = nil
             
         }
         
@@ -67,25 +67,4 @@ extension MainVC {
             
         }
     }
-    
-//    func attemptCategoryFetch() {
-//        
-//        let titleSort = NSSortDescriptor(key: "title", ascending: true)
-//        categoryFetchRequest.sortDescriptors = [titleSort]
-//        
-//        let controller = NSFetchedResultsController(fetchRequest: categoryFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-//        controller.delegate = self
-//        self.categoryController = controller
-//        
-//        do {
-//            
-//            try controller.performFetch()
-//            
-//        } catch {
-//            
-//            let error = error as NSError
-//            print("Error: \(error)")
-//            
-//        }
-//    }
 }

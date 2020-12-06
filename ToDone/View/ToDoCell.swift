@@ -11,18 +11,11 @@ import UIKit
 class ToDoCell: UITableViewCell {
     
     func clearCell() {
-        
         let subviews = self.subviews
-        
-        for subview in subviews {
-            
-            subview.removeFromSuperview()
-            
-        }
+        for subview in subviews { subview.removeFromSuperview() }
     }
     
     func configureCell(toDo: ToDo) {
-        
         let categoryView = CategoryView()
         let titleLbl = UILabel()
         let percentageLabel = UILabel()
@@ -34,13 +27,13 @@ class ToDoCell: UITableViewCell {
         categoryView.backgroundColor = toDo.category?.color as? UIColor
         categoryView.translatesAutoresizingMaskIntoConstraints = false
         
-        percentageLabel.font = Shared.displayFont
+        percentageLabel.font = displayFont
         percentageLabel.textAlignment = .right
         percentageLabel.text = "\(toDo.completed)%"
         percentageLabel.sizeToFit()
         percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLbl.font = Shared.displayFont
+        titleLbl.font = displayFont
         titleLbl.text = toDo.title
         titleLbl.sizeToFit()
         titleLbl.translatesAutoresizingMaskIntoConstraints = false

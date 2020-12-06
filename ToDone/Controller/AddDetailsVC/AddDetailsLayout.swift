@@ -65,7 +65,7 @@ extension AddDetailsVC {
     
     func layoutNewSubToDoForm() {
         
-        titleInput.font = Shared.displayFont
+        titleInput.font = displayFont
         titleInput.translatesAutoresizingMaskIntoConstraints = false
         titleInput.addLabel(title: "SubToDo:")
         

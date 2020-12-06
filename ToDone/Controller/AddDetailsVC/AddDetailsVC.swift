@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class AddDetailsVC: UIViewController, Alertable, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     //MARK: CoreData Variables
     var categoryController: NSFetchedResultsController<Category>!
@@ -30,58 +30,41 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         layoutSystemButtons()
         
         if transition == "addCategory" {
-            
             layoutCategoryTable()
-            
         } else {
-            
             layoutNewSubToDoForm()
-            
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         attemptCategoryFetch()
         categoryTable.reloadData()
-        
     }
     
     @objc func cancelPressed(sender: TextButton!) {
-        
-        Shared.createdSubToDo = nil
-        Shared.selectedCategory = nil
+        Shared.instance.createdSubToDo = nil
+        Shared.instance.selectedCategory = nil
         
         dismiss(animated: true, completion: nil)
-        
     }
     
     @objc func donePressed(sender: TextButton!) {
-        
         if transition == "addSubToDo" {
-            
             if titleInput.text != "" {
-                
                 let newSubToDo = SubToDo(context: context)
                 newSubToDo.title = titleInput.text
                 newSubToDo.completed = false
                 newSubToDo.dateAdded = Date()
                 
-                Shared.createdSubToDo = newSubToDo
+                Shared.instance.createdSubToDo = newSubToDo
                 
                 dismiss(animated: true, completion: nil)
-                
             } else {
-                
-                let alert = UIAlertController(title: "Missing Title", message: "Please input a title for this SubToDo.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                present(alert, animated: true, completion: nil)
-                
+                showAlert(.missingTitle)
             }
         }
         
-        if Shared.selectedCategory != nil {
+        if Shared.instance.selectedCategory != nil {
             
             dismiss(animated: true, completion: nil)
             
@@ -121,7 +104,7 @@ class AddDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         if let objects = categoryController.fetchedObjects, objects.count > 0 {
                 
-            Shared.selectedCategory = objects[indexPath.row]
+            Shared.instance.selectedCategory = objects[indexPath.row]
             
         }
         

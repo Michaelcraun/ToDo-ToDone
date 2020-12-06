@@ -18,9 +18,8 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     var tapGesture = UITapGestureRecognizer()
     
-    var selectedCategory: Category?
-    
     //MARK: CoreData Variables
+    var selectedCategory: Category?
     var categoryController: NSFetchedResultsController<Category>!
     let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
     
@@ -83,9 +82,9 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             
         }
         
-        switch Shared.isPremium {
+        switch Shared.instance.isPremium {
         case true: numOfCategories += 1
-        case false: numOfCategories += 2
+        case false: numOfCategories += 3
         }
         
         return numOfCategories
@@ -95,41 +94,50 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryCell
+        var categories = [Category]()
+        
+        if let fetchedObjects = categoryController.fetchedObjects, fetchedObjects.count > 0 {
+            
+            categories = fetchedObjects
+            
+        }
         
         cell.backgroundColor = UIColor(red: 225 / 255, green: 225 / 255, blue: 225 / 255, alpha: 1)
         
         if indexPath.row == 0 {
             
-            switch Shared.isPremium {
+            switch Shared.instance.isPremium {
             case true: cell.configureAddCell()
             case false: cell.configurePurchaseCell()
             }
             
         } else if indexPath.row == 1 {
-        
-            switch Shared.isPremium {
+            
+            switch Shared.instance.isPremium {
             case true:
-                if let objects = categoryController.fetchedObjects, objects.count > 0 {
-                    
-                    cell.clearCell()
-                    cell.configureCell(category: objects[indexPath.row - 1])
-                    
-                }
+                cell.clearCell()
+                cell.configureCell(category: categories[indexPath.row - 1])
+            case false: cell.configureRestoreCell()
+            }
+            
+        } else if indexPath.row == 2 {
+        
+            switch Shared.instance.isPremium {
+            case true:
+                cell.clearCell()
+                cell.configureCell(category: categories[indexPath.row - 2])
             case false: cell.configureAddCell()
             }
             
         } else {
             
-            if let objects = categoryController.fetchedObjects, objects.count > 0 {
-                
-                switch Shared.isPremium {
-                case true:
-                    cell.clearCell()
-                    cell.configureCell(category: objects[indexPath.row - 1])
-                case false:
-                    cell.clearCell()
-                    cell.configureCell(category: objects[indexPath.row - 2])
-                }
+            switch Shared.instance.isPremium {
+            case true:
+                cell.clearCell()
+                cell.configureCell(category: categories[indexPath.row - 3])
+            case false:
+                cell.clearCell()
+                cell.configureCell(category: categories[indexPath.row - 3])
             }
         }
         
@@ -143,16 +151,29 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         
         if indexPath.row == 0 {
             
-            switch Shared.isPremium {
+            switch Shared.instance.isPremium {
             case true: performSegue(withIdentifier: "addCategory", sender: nil)
             case false: buyProduct(productID: Products.premium.rawValue)
             }
             
         } else if indexPath.row == 1 {
             
-            switch Shared.isPremium {
+            switch Shared.instance.isPremium {
             case true:
-                Shared.selectedCategory = objects[indexPath.row - 1]
+                Shared.instance.selectedCategory = objects[indexPath.row - 1]
+                performSegue(withIdentifier: "unwindToLeft", sender: nil)
+            case false:
+                NetworkIndicator.networkOperationStarted()
+                
+                SKPaymentQueue.default().add(self)
+                SKPaymentQueue.default().restoreCompletedTransactions()
+            }
+            
+        } else if indexPath.row == 2 {
+            
+            switch Shared.instance.isPremium {
+            case true:
+                Shared.instance.selectedCategory = objects[indexPath.row - 2]
                 performSegue(withIdentifier: "unwindToLeft", sender: nil)
             case false:
                 
@@ -180,7 +201,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             
         } else {
             
-            Shared.selectedCategory = objects[indexPath.row - 2]
+            Shared.instance.selectedCategory = objects[indexPath.row - 2]
             performSegue(withIdentifier: "unwindToLeft", sender: nil)
             
         }
@@ -194,7 +215,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         var cellActions = [UITableViewRowAction]()
         var beginningIndex = 0
         
-        switch Shared.isPremium {
+        switch Shared.instance.isPremium {
         case true: beginningIndex = 1
         case false: beginningIndex = 2
         }
